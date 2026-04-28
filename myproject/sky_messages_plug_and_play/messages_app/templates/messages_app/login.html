@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block auth_content %}
+<div class="auth-box">
+  <h1>Sky Engineering Login</h1>
+  <p>Demo login: ceyda / password123</p>
+  <br>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="notice">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button class="btn" type="submit">Login</button>
+  </form>
+
+  <br>
+  <p>No account? <a href="{% url 'register' %}">Register here</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sky Engineering Dashboard</title>
+
+<style>
+  :root {
+    --bg-page: #F5F5F5;
+    --bg-main: #18B7B0;
+    --bg-sidebar: #CFF3EF;
+    --card-blue: #1E73D8;
+    --card-border: #2E5BFF;
+    --accent-home: #F28B82;
+    --btn-default: #E6F7F5;
+    --search-bg: #EDEDED;
+    --text-dark: #1A1A1A;
+    --white: #FFFFFF;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dashboard {
+    width: 90%;
+    min-height: 90vh;
+    background-color: var(--bg-main);
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .sidebar {
+    width: 220px;
+    height: 100%;
+    background-color: var(--bg-sidebar);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .sidebar a {
+    text-decoration: none;
+  }
+
+  .sidebar button {
+    width: 100%;
+    min-height: 45px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--btn-default);
+    color: var(--text-dark);
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+  }
+
+  .sidebar button:hover {
+    background-color: #d9f0ec;
+  }
+
+  .sidebar .active {
+    background-color: var(--accent-home);
+    color: var(--white);
+  }
+
+  .main {
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    color: var(--white);
+  }
+
+  .header {
+    text-align: center;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .search-bar, input, textarea, select {
+    width: 100%;
+    min-height: 42px;
+    border-radius: 12px;
+    border: none;
+    padding: 10px 15px;
+    background-color: var(--search-bg);
+    outline: none;
+    margin-bottom: 12px;
+  }
+
+  textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card, .message-card, .form-card {
+    background-color: var(--card-blue);
+    border: 4px solid var(--card-border);
+    border-radius: 20px;
+    color: var(--white);
+    padding: 20px;
+  }
+
+  .card {
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .message-card {
+    margin-bottom: 15px;
+  }
+
+  .message-card a {
+    color: white;
+    font-weight: bold;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 12px;
+    padding: 12px 18px;
+    background: var(--btn-default);
+    color: var(--text-dark);
+    cursor: pointer;
+    margin-right: 8px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-danger {
+    background: #F28B82;
+    color: white;
+  }
+
+  .notice {
+    background: white;
+    color: var(--text-dark);
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .auth-box {
+    width: 420px;
+    background: var(--bg-main);
+    padding: 30px;
+    border-radius: 25px;
+    color: white;
+  }
+
+  .auth-box a {
+    color: white;
+    font-weight: bold;
+  }
+
+  @media (max-width: 900px) {
+    .dashboard {
+      grid-template-columns: 1fr;
+    }
+    .sidebar {
+      width: 100%;
+    }
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+
+<body>
+{% if request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'register' %}
+  {% block auth_content %}{% endblock %}
+{% else %}
+  <div class="dashboard">
+    <aside class="sidebar">
+      <a href="{% url 'dashboard' %}"><button class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Home</button></a>
+      <button>Organisations</button>
+      <a href="{% url 'inbox' %}"><button class="{% if request.resolver_match.url_name == 'inbox' %}active{% endif %}">Inbox</button></a>
+      <a href="{% url 'new_message' %}"><button class="{% if request.resolver_match.url_name == 'new_message' %}active{% endif %}">New Message</button></a>
+      <a href="{% url 'sent' %}"><button class="{% if request.resolver_match.url_name == 'sent' %}active{% endif %}">Sent</button></a>
+      <a href="{% url 'drafts' %}"><button class="{% if request.resolver_match.url_name == 'drafts' %}active{% endif %}">Drafts</button></a>
+      <button>Teams</button>
+      <a href="{% url 'reports_home'%}">
+        <button class="{% if request.resolver_match.url_name == 'reports_home' %}active{% endif %}">
+          Reports
+        </button>
+      </a>
+      <button>Profile</button>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}"><button>Logout</button></a>
+      {% else %}
+        <a href="{% url 'login' %}"><button>Login</button></a>
+      {% endif %}
+    </aside>
+
+    <main class="main">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="notice">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+{% endif %}
+</body>
+</html>

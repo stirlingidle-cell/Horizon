@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="header">
+  <h1>{{ message_obj.subject }}</h1>
+</div>
+
+<div class="message-card">
+  <p><strong>From:</strong> {{ message_obj.sender.username }}</p>
+  <p><strong>To:</strong> {{ message_obj.receiver.username }}</p>
+  <p><strong>Date:</strong> {{ message_obj.timestamp|date:"d M Y, H:i" }}</p>
+  <br>
+  <p>{{ message_obj.content }}</p>
+  <br>
+  <a class="btn" href="{% url 'inbox' %}">Back to Inbox</a>
+  <a class="btn btn-danger" href="{% url 'delete_message' message_obj.id %}">Delete</a>
+</div>
+{% endblock %}

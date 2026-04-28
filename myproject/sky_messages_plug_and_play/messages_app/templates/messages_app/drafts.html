@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="header">
+  <h1>{{ page_title }}</h1>
+  <form method="GET" style="width: 60%;">
+    <input class="search-bar" type="text" name="q" value="{{ query }}" placeholder="Search messages by subject">
+  </form>
+</div>
+
+{% for msg in messages_list %}
+  <div class="message-card">
+    <h3><a href="{% url 'view_message' msg.id %}">{{ msg.subject }}</a></h3>
+    <p><strong>From:</strong> {{ msg.sender.username }}</p>
+    <p><strong>To:</strong> {{ msg.receiver.username }}</p>
+    <p><strong>Date:</strong> {{ msg.timestamp|date:"d M Y, H:i" }}</p>
+    <p>{{ msg.content|truncatewords:25 }}</p>
+  </div>
+{% empty %}
+  <div class="message-card">
+    <p>No messages found.</p>
+  </div>
+{% endfor %}
+{% endblock %}

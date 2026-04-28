@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="header">
+  <h1>New Message</h1>
+</div>
+
+<div class="form-card">
+  <form method="POST">
+    {% csrf_token %}
+
+    <label>Receiver</label>
+    <select name="receiver" required>
+      <option value="">Select a user</option>
+      {% for user_obj in users %}
+        <option value="{{ user_obj.id }}">{{ user_obj.username }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Subject</label>
+    <input type="text" name="subject" placeholder="Message subject" required>
+
+    <label>Message</label>
+    <textarea name="content" placeholder="Write your message here" required></textarea>
+
+    <button class="btn" type="submit">Send Message</button>
+    <button class="btn" type="submit" name="save_draft">Save as Draft</button>
+  </form>
+</div>
+{% endblock %}

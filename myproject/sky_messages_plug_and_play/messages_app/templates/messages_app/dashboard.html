@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="header">
+  <h1>Welcome {% if user.is_authenticated %}{{ user.username }}{% else %}Guest{% endif %}!</h1>
+  <input class="search-bar" type="text" placeholder="Search for a team, manager or department">
+</div>
+
+<div class="cards">
+  <div class="card">Inbox<br>{{ inbox_count }} messages</div>
+  <div class="card">Sent<br>{{ sent_count }} messages</div>
+  <div class="card">Drafts<br>{{ draft_count }} saved</div>
+</div>
+{% endblock %}

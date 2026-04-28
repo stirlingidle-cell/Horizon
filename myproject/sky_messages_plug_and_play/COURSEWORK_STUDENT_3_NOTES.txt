@@ -1,0 +1,19 @@
+Student 3 Individual Functionality:
+Menu item: Messages
+Implemented pages:
+- Dashboard/Home
+- Inbox
+- Sent
+- Drafts
+- New Message
+- View Message
+- Delete Message
+- Login/Register for user testing
+
+Global CSS:
+The dashboard layout, root variables, sidebar, cards, search bar and buttons follow the global CSS provided by the group.
+
+Test users:
+ceyda / password123
+manager / password123
+admin / admin123
