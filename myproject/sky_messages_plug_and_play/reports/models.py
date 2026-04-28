@@ -1,3 +1,6 @@
+# Author - Esa Ahmed W1989464
+
+# Models used to store imported team registry data for reports such as departments names
 from django.db import models
 
 class Department(models.Model):

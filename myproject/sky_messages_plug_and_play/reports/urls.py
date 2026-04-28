@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+# URL routes for the Reports Section
 urlpatterns = [
     path('', views.reports_home, name='reports_home'),
     path('team-count/', views.team_count, name='team_count'),

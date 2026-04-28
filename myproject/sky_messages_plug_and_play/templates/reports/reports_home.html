@@ -1,9 +1,17 @@
+<!--
+Author - Esa Ahmed W1989464
+This is the html file for the homepage of the Reports
+Each section is used a div tag to seperate the different reports onto seperate cards
+It contains buttons that allows the user to download reports PDF's
+-->
+
 {% extends 'base.html' %}
 
 {% block content %}
 
 <div class="header">
     <h1>Reports Dashboard</h1>
+    <p>Select a report to generate and download as PDF</p>
 </div>
 
 <div class="cards">
@@ -11,6 +19,7 @@
     <div class="card">
         <div>
             <h3>Number of Teams</h3>
+            <p>Generate a report showing the number of teams</p>
             <br>
             <a href="{% url 'team_count_pdf' %}" class="btn">Download PDF</a>
         </div>
@@ -19,6 +28,7 @@
     <div class="card">
         <div>
             <h3>Team Summary</h3>
+            <p>Generate a summary report of all teams</p>
             <br>
             <a href="{% url 'team_summary_pdf' %}" class="btn">Download PDF</a>
         </div>
@@ -27,6 +37,7 @@
     <div class="card">
         <div>
             <h3>Teams Without Managers</h3>
+            <p>Generate a report that contains any teams that do not have a team leader or manager</p>
             <br>
             <a href="{% url 'teams_without_managers_pdf' %}" class="btn">Download PDF</a>
         </div>

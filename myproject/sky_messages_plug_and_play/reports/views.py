@@ -1,3 +1,5 @@
+# Author - Esa Ahmed W1989464
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
@@ -5,6 +7,8 @@ from .models import Team
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
+# @login_required makes sure that the user is logged in before they can access the work
+#Displays the reports page
 @login_required
 def reports_home(request):
     return render(request, 'reports/reports_home.html')
@@ -16,7 +20,7 @@ def team_count(request):
     return render(request, 'reports/team_count.html', {
         'total_teams': total_teams
     })
-
+#Creates a PDF report displaying the total number of teams and the names of those teams
 @login_required
 def team_count_pdf(request):
     from datetime import datetime
@@ -77,6 +81,7 @@ def team_count_pdf(request):
     pdf.save()
 
     return response
+#Creates a summart PDF showing a teams name , department and team leader
 @login_required
 def team_summary_pdf(request):
     from datetime import datetime
@@ -140,6 +145,7 @@ def team_summary_pdf(request):
 
     return response
 @login_required
+#Creates a PDF report showing teams that do not currently have a team leader
 def teams_without_managers_pdf(request):
     from datetime import datetime
 

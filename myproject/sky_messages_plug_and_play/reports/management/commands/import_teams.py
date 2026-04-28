@@ -2,7 +2,7 @@ import openpyxl
 from django.core.management.base import BaseCommand
 from reports.models import Department, Team
 
-
+# Django command to import excel data into the SQLite database
 class Command(BaseCommand):
     help = "Import teams from team_registry.xlsx"
 
